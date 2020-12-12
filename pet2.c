@@ -86,6 +86,7 @@ pet_t* add(pet_t* list_head,pet_t*(*func)(pet_t*, char*))
 	
 	printf("반려견 이름:");
 	scanf("%s",pet_name);
+	tmp_node=func(list_head,pet_name);
 
 	if(tmp_node!=NULL)
 	{
@@ -138,7 +139,6 @@ void open(pet_t* list_head)
 	}
 	fclose(fp);
 	printf("파일을 불러옴.\n");
-	return;
 }
 
 
@@ -238,39 +238,7 @@ void show_all(pet_t* list_head)
 		tmp_node=tmp_node->next;
 	}
 }
-
-
+		
 
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			
+				
