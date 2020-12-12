@@ -19,18 +19,17 @@ void main()
 {
 	int key;
 	pet_t* list_head=NULL;
-	while(key!=8)
+	while(key!=7)
 	{
 	printf("==============================\n");
 	printf("반려견 관리 프로그램\n");
 	printf("1. 반려견 맡기기(이름,비밀번호,맡길 기간,좋아하는 간식 순서로)\n");
 	printf("2. 자신의 반려견 검색\n");//자신의 반려견 검색
-	printf("3. 반려견 이름 변경\n");
-	printf("4. 반려견 이름 삭제 후 찾아가기\n");//반려견 이름 삭제
-	printf("5. 모든 정보 출력\n");
-	printf("6. 모든 정보 삭제\n");
-	printf("7. 모든 정보 저장\n");
-	printf("8. 실행 종료\n");
+	printf("3. 반려견 이름 삭제 후 찾아가기\n");//반려견 이름 삭제
+	printf("4. 모든 정보 출력\n");
+	printf("5. 모든 정보 삭제\n");
+	printf("6. 모든 정보 저장\n");
+	printf("7. 실행 종료\n");
 	printf("==============================\n");
 	printf("번호를 선택하시오:");
 	scanf("%d",&key);
@@ -47,19 +46,17 @@ void main()
 	}
 }
 /*
+		
 		case 3:
-			change();
-			break;
-		case 4:
 			delete();
 			break;
-		case 5:
+		case 4:
 			show_all();
 			break;
-		case 6:
+		case 5:
 			delete_all();
 			break;
-		case 7:
+		case 6:
 			save();
 			break;
 		default:
@@ -109,23 +106,6 @@ pet_t* add(pet_t* list_head,pet_t*(*func)(pet_t*, char*))
 	list_head=new_node;//new_node를 list_head값에 넣음.
 	return list_head;
 }
-
-/*
-void show();
-{
-	pet* tmp_node;
-	char name[30];
-	printf("찾고싶은 반려견:");
-	scanf("%s",name);
-	tmp_node=func(list_head,name);
-	if(tmp_node)
-	{
-		printf("반려견 이름:%s\n",tmp_node->name);
-		printf("비밀번호:%d\n",tmp_node->number);
-		printf("맡긴 기간:%d\n",tmp_node->date);
-		printf("좋아하는 간식:%s\n",tmp_node->snack);
-		func
-*/
 
 void open(pet_t* list_head)
 {
@@ -186,6 +166,31 @@ void search_pet(pet_t* list_head,pet_t*(*func)(pet_t*,char*))
 		printf("좋아하는 간식:%s\n",tmp_node->snack);
 	}
 }
+
+void delete(pet_t** list_head,pet_t*(func)(pet_t*,char*))
+{
+	pet_t* tmp_node;
+	pet_t* prev=NULL;
+	pet_t* seek=*list_head;
+
+	char pet_name[50];
+	
+	printf("찾아갈 반려견 이름:");
+	scanf("%s",pet_name);
+	
+	tmp_node=func(*list_head,pet_name);
+	
+	if(tmp_node==NULL)
+	{
+		printf("존재하지 않는 반려견입니다.\n");
+		return;
+	}
+}
+	
+	
+
+
+
 
 	
 
