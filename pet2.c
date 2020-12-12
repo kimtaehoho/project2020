@@ -13,7 +13,8 @@ void open(pet_t* list_head);
 pet_t* search(pet_t* list_head,char* name);
 pet_t* add(pet_t* list_head,pet_t*(*func)(pet_t*,char*));
 void search_pet(pet_t* list_head,pet_t*(*func)(pet_t*,char*));
-
+void show_all(pet_t* list_head);
+void delete(pet_t** list_head,pet_t*(*func)(pet_t*,char*));
 
 void main()
 {
@@ -41,6 +42,12 @@ void main()
 	
 		case 2:
 			search_pet(list_head,search);
+			break;
+		case 3:
+			delete(&list_head,search);
+			break;
+		case 4:
+			show_all(list_head);
 			break;
 	}
 	}
@@ -80,7 +87,7 @@ pet_t* add(pet_t* list_head,pet_t*(*func)(pet_t*, char*))
 	printf("반려견 이름:");
 	scanf("%s",pet_name);
 
-	if(tmp_node=NULL)
+	if(tmp_node!=NULL)
 	{
 		printf("이미 이 반려견은 존재합니다.\n");
 		return list_head;
@@ -96,7 +103,8 @@ pet_t* add(pet_t* list_head,pet_t*(*func)(pet_t*, char*))
 		printf("좋아하는 간식 입력:");
 		scanf("%s",pet_snack);
 	}
-
+	
+	new_node=(pet_t*)malloc(sizeof(pet_t));
 	strcpy(new_node->name,pet_name);
 	new_node->number=pet_number;
 	new_node->date=pet_date;
@@ -106,6 +114,7 @@ pet_t* add(pet_t* list_head,pet_t*(*func)(pet_t*, char*))
 	list_head=new_node;//new_node를 list_head값에 넣음.
 	return list_head;
 }
+
 
 void open(pet_t* list_head)
 {
@@ -147,6 +156,7 @@ pet_t* search(pet_t* list_head,char* pet_name)
 	return tmp;
 }
 
+
 void search_pet(pet_t* list_head,pet_t*(*func)(pet_t*,char*))
 {
 	pet_t* tmp_node;
@@ -169,26 +179,65 @@ void search_pet(pet_t* list_head,pet_t*(*func)(pet_t*,char*))
 
 void delete(pet_t** list_head,pet_t*(func)(pet_t*,char*))
 {
-	pet_t* tmp_node;
-	pet_t* prev=NULL;
-	pet_t* seek=*list_head;
+   pet_t* tmp_node;
+   pet_t* prev=NULL;
+   pet_t* seek=*list_head;
 
-	char pet_name[50];
-	
-	printf("찾아갈 반려견 이름:");
-	scanf("%s",pet_name);
-	
-	tmp_node=func(*list_head,pet_name);
-	
-	if(tmp_node==NULL)
+   char pet_name[50];
+
+   printf("찾아갈 반려견 이름:");
+   scanf("%s",pet_name);
+
+   tmp_node=func(*list_head,pet_name);
+
+   if(tmp_node==NULL)
+   {
+      printf("존재하지 않는 반려견입니다.\n");
+      return;
+   }
+	if(strcmp((*list_head)->name,pet_name)==0)
 	{
-		printf("존재하지 않는 반려견입니다.\n");
+        tmp_node=*list_head;
+        (*list_head)=(*list_head)->next;
+        free(tmp_node);
+		printf("반려견과 좋은시간 되세요~!\n");
 		return;
+    }
+	else
+    {
+    	while(tmp_node==NULL)
+    	{
+        	if (strcmp(tmp_node->name,pet_name)==0)
+        	{
+            	prev->next=tmp_node->next;
+            	free(tmp_node);
+				printf("반려견과 좋은시간 되세요~!\n");
+            	return;
+        	}
+        	prev=tmp_node;
+        	tmp_node=tmp_node->next;
+    	}
+    }
+}
+
+
+
+void show_all(pet_t* list_head)
+{
+	pet_t* tmp_node=list_head;
+	if(list_head=NULL)
+	{
+		printf("어떠한 정보도 없습니다.\n");
+	}
+	while(tmp_node!=NULL)
+	{
+		printf("반려견 이름:%s\n",tmp_node->name);
+		printf("비밀번호:%d\n",tmp_node->number);
+		printf("맡긴 기간:%d\n",tmp_node->date);
+		printf("좋아하는 간식:%s\n",tmp_node->snack);
+		tmp_node=tmp_node->next;
 	}
 }
-	
-	
-
 
 
 
