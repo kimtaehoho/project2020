@@ -23,7 +23,7 @@ void main()
 {
 	int key;
 	pet_t* list_head=NULL;
-	while(key!=9)
+	while(key!=8)
 	{
 		printf("==============================\n");
 		printf("<반려견 관리 프로그램>\n");
@@ -66,7 +66,7 @@ void main()
 				printf("번호를 잘못 입력하셨습니다.\n");
 				break;
 		}
-		if(key==9)
+		if(key==8)
 			printf("프로그램을 종료합니다.\n");
 	}
 }
